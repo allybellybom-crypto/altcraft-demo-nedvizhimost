@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЖК Северный парк, Марьино. Квартиры от застройщика</title>
+<meta name="description" content="ЖК Северный парк, Москва, Марьино. Новостройка, сдача III кв. 2026. Квартиры от 17,7 млн руб. Запись на показ онлайн.">
+<style>
+  :root{
+    --ink:#1a1d21; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f7f5; --card:#ffffff;
+    --accent:#0f6b4f; --accent-dark:#0b523c; --accent-soft:#e7f2ee; --warn:#b45309;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink); background:var(--bg); line-height:1.55;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  header{background:var(--card); border-bottom:1px solid var(--line);}
+  .hdr{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{font-weight:700; font-size:17px; letter-spacing:.2px;}
+  .brand span{color:var(--accent);}
+  .hdr nav{display:flex; gap:22px; font-size:14px;}
+  .hdr nav a{color:var(--muted); text-decoration:none;}
+  .hdr nav a:hover{color:var(--ink);}
+  .hdr .phone{font-weight:600; font-size:14px; color:var(--ink); text-decoration:none;}
+  .hero{background:linear-gradient(180deg,#eef3f1 0%, #f7f7f5 100%); padding:48px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:start;}
+  .kicker{display:inline-block; background:var(--accent-soft); color:var(--accent-dark); font-size:13px; font-weight:600; padding:4px 12px; border-radius:20px; margin-bottom:14px;}
+  h1{font-size:34px; line-height:1.2; margin-bottom:12px;}
+  .sub{color:var(--muted); font-size:16px; margin-bottom:22px;}
+  .facts{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px;}
+  .fact{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:13px;}
+  .fact b{display:block; font-size:15px; color:var(--ink);}
+  .fact small{color:var(--muted);}
+  .price-line{font-size:20px; font-weight:700; margin-bottom:6px;}
+  .price-line small{display:block; font-size:13px; color:var(--muted); font-weight:400;}
+  .btn{display:inline-block; background:var(--accent); color:#fff; border:none; border-radius:10px; padding:13px 26px; font-size:15px; font-weight:600; cursor:pointer; text-decoration:none;}
+  .btn:hover{background:var(--accent-dark);}
+  .btn.ghost{background:transparent; color:var(--accent-dark); border:1px solid var(--accent);}
+  .tower{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;}
+  .tower h3{font-size:14px; color:var(--muted); font-weight:600; margin-bottom:12px; text-transform:uppercase; letter-spacing:.5px;}
+  .bar{height:10px; background:#e9ecea; border-radius:6px; overflow:hidden; margin:8px 0 6px;}
+  .bar i{display:block; height:100%; background:var(--accent); border-radius:6px;}
+  .tower .pct{font-size:22px; font-weight:700;}
+  .tower ul{list-style:none; margin-top:14px; font-size:14px; color:var(--muted);}
+  .tower li{padding:7px 0; border-top:1px dashed var(--line); display:flex; justify-content:space-between;}
+  .tower li b{color:var(--ink); font-weight:600;}
+  section{padding:44px 0;}
+  h2{font-size:24px; margin-bottom:6px;}
+  .section-sub{color:var(--muted); font-size:14px; margin-bottom:24px;}
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .plan{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .plan svg{display:block; width:100%; height:auto; background:#fbfbfa;}
+  .plan .body{padding:14px 16px 16px;}
+  .plan h4{font-size:15px; margin-bottom:2px;}
+  .plan .area{font-size:13px; color:var(--muted); margin-bottom:8px;}
+  .plan .cost{font-size:17px; font-weight:700;}
+  .plan .cost small{display:block; font-weight:400; font-size:12px; color:var(--muted);}
+  .plan .btn{margin-top:12px; width:100%; text-align:center; padding:10px 0; font-size:14px;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start;}
+  .calc{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px;}
+  .calc h3{font-size:18px; margin-bottom:4px;}
+  .calc .note{font-size:13px; color:var(--muted); margin-bottom:18px;}
+  .row{margin-bottom:14px;}
+  .row label{display:block; font-size:13px; color:var(--muted); margin-bottom:5px;}
+  .row input,.row select{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:15px; background:#fff;}
+  .row input:focus,.row select:focus{outline:2px solid var(--accent-soft); border-color:var(--accent);}
+  .rates{display:flex; gap:8px; margin-bottom:16px;}
+  .rates button{flex:1; padding:9px 6px; border:1px solid var(--line); background:#fff; border-radius:8px; font-size:13px; cursor:pointer; color:var(--muted);}
+  .rates button.on{border-color:var(--accent); color:var(--accent-dark); background:var(--accent-soft); font-weight:600;}
+  .result{background:var(--accent-soft); border-radius:10px; padding:16px; margin-top:6px;}
+  .result .pay{font-size:26px; font-weight:700; color:var(--accent-dark);}
+  .result .pay small{font-size:13px; color:var(--muted); font-weight:400;}
+  .result .meta{font-size:12px; color:var(--muted); margin-top:6px;}
+  .form-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px;}
+  .form-card h3{font-size:18px; margin-bottom:4px;}
+  .form-card .note{font-size:13px; color:var(--muted); margin-bottom:16px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:13px; color:var(--muted); margin-bottom:5px;}
+  .field input,.field textarea{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:15px;}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--accent-soft); border-color:var(--accent);}
+  .agree{display:flex; gap:8px; align-items:flex-start; font-size:12px; color:var(--muted); margin:12px 0 16px;}
+  .agree input{margin-top:3px;}
+  .success{display:none; background:var(--accent-soft); border:1px solid var(--accent); border-radius:10px; padding:16px; font-size:14px; color:var(--accent-dark);}
+  .success b{display:block; font-size:16px; margin-bottom:4px;}
+  .about p{color:var(--muted); font-size:15px; margin-bottom:12px;}
+  .about ul{list-style:none; margin-top:8px;}
+  .about li{padding:8px 0 8px 26px; position:relative; font-size:14px;}
+  .about li:before{content:""; position:absolute; left:0; top:11px; width:14px; height:14px; border-radius:50%; background:var(--accent-soft); border:4px solid var(--accent);}
+  footer{border-top:1px solid var(--line); padding:26px 0 40px; color:var(--muted); font-size:12.5px; background:var(--card);}
+  footer .demo-note{margin-top:10px; padding:10px 14px; background:var(--bg); border-radius:8px;}
+  @media (max-width: 860px){
+    .hero-grid,.two-col{grid-template-columns:1fr;}
+    .plans{grid-template-columns:1fr;}
+    .hdr nav{display:none;}
+    h1{font-size:27px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div class="brand">СЕВЕРНЫЙ <span>ПАРК</span></div>
+    <nav>
+      <a href="#plans">Планировки</a>
+      <a href="#calc">Ипотека</a>
+      <a href="#about">О проекте</a>
+      <a href="#form">Запись на показ</a>
+    </nav>
+    <a class="phone" href="tel:+74950000000">+7 (495) 000-00-00</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Новостройка. Сдача в III кв. 2026</span>
+      <h1>ЖК «Северный парк», Марьино</h1>
+      <p class="sub">Квартиры с панорамными окнами на парк. Дом на 612 квартир, свой паркинг, школа и детский сад в пешей доступности. 12 минут пешком до метро «Марьино».</p>
+      <div class="facts">
+        <div class="fact"><small>Цены от</small><b>17,7 млн ₽</b></div>
+        <div class="fact"><small>Площади</small><b>32–67 м²</b></div>
+        <div class="fact"><small>Метро</small><b>12 мин пешком</b></div>
+        <div class="fact"><small>Паркинг</small><b>420 мест</b></div>
+      </div>
+      <div class="price-line">от 17,7 до 22,7 млн ₽ <small>студии, 1- и 2-комнатные квартиры, чистовая отделка</small></div>
+      <a class="btn" href="#form">Записаться на показ</a>
+    </div>
+    <div class="tower">
+      <h3>Ход строительства</h3>
+      <div class="pct">78%</div>
+      <div class="bar"><i style="width:78%"></i></div>
+      <ul>
+        <li><span>Коробка и фасады</span><b>готово</b></li>
+        <li><span>Инженерия</span><b>в работе</b></li>
+        <li><span>Отделка</span><b>апрель 2026</b></li>
+        <li><span>Сдача</span><b>III кв. 2026</b></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section id="plans">
+  <div class="wrap">
+    <h2>Планировки и цены</h2>
+    <p class="section-sub">Три типа квартир. Полный прайс: 36 корпусов и планировок в отделе продаж, ниже стартовые цены по типам.</p>
+    <div class="plans">
+      <div class="plan">
+        <svg viewBox="0 0 300 150" role="img" aria-label="План студии">
+          <rect x="14" y="14" width="272" height="122" fill="none" stroke="#9aa3a0" stroke-width="3"/>
+          <rect x="150" y="14" width="136" height="58" fill="#e7f2ee" stroke="#9aa3a0"/>
+          <text x="218" y="47" text-anchor="middle" font-size="12" fill="#4b5563">кухня-ниша</text>
+          <rect x="14" y="96" width="80" height="40" fill="#f3f4f6" stroke="#9aa3a0"/>
+          <text x="54" y="120" text-anchor="middle" font-size="12" fill="#4b5563">с/у</text>
+          <text x="100" y="70" text-anchor="middle" font-size="13" fill="#374151">студия 32,4 м²</text>
+        </svg>
+        <div class="body">
+          <h4>Студия</h4>
+          <div class="area">32,4–40,1 м², этажи 2–17</div>
+          <div class="cost">от 17,7 млн ₽<small>160 551 ₽/м², чистовая отделка</small></div>
+          <a class="btn" href="#form">Хочу посмотреть</a>
+        </div>
+      </div>
+      <div class="plan">
+        <svg viewBox="0 0 300 150" role="img" aria-label="План однокомнатной квартиры">
+          <rect x="14" y="14" width="272" height="122" fill="none" stroke="#9aa3a0" stroke-width="3"/>
+          <rect x="14" y="14" width="120" height="74" fill="#e7f2ee" stroke="#9aa3a0"/>
+          <text x="74" y="55" text-anchor="middle" font-size="12" fill="#4b5563">спальня</text>
+          <rect x="160" y="14" width="126" height="58" fill="#f9fafb" stroke="#9aa3a0"/>
+          <text x="223" y="47" text-anchor="middle" font-size="12" fill="#4b5563">кухня-гостиная</text>
+          <rect x="200" y="96" width="86" height="40" fill="#f3f4f6" stroke="#9aa3a0"/>
+          <text x="243" y="120" text-anchor="middle" font-size="12" fill="#4b5563">с/у</text>
+          <text x="112" y="116" text-anchor="middle" font-size="13" fill="#374151">1к 40,2 м²</text>
+        </svg>
+        <div class="body">
+          <h4>1-комнатная</h4>
+          <div class="area">40,2–52,3 м², этажи 2–17</div>
+          <div class="cost">от 18,2 млн ₽<small>158 240 ₽/м², чистовая отделка</small></div>
+          <a class="btn" href="#form">Хочу посмотреть</a>
+        </div>
+      </div>
+      <div class="plan">
+        <svg viewBox="0 0 300 150" role="img" aria-label="План двухкомнатной квартиры">
+          <rect x="14" y="14" width="272" height="122" fill="none" stroke="#9aa3a0" stroke-width="3"/>
+          <rect x="14" y="14" width="110" height="70" fill="#e7f2ee" stroke="#9aa3a0"/>
+          <text x="69" y="53" text-anchor="middle" font-size="12" fill="#4b5563">спальня</text>
+          <rect x="176" y="14" width="110" height="70" fill="#f9fafb" stroke="#9aa3a0"/>
+          <text x="231" y="53" text-anchor="middle" font-size="12" fill="#4b5563">детская</text>
+          <rect x="120" y="98" width="106" height="38" fill="#f9fafb" stroke="#9aa3a0"/>
+          <text x="173" y="121" text-anchor="middle" font-size="12" fill="#4b5563">кухня-гостиная</text>
+          <rect x="240" y="98" width="46" height="38" fill="#f3f4f6" stroke="#9aa3a0"/>
+          <text x="263" y="121" text-anchor="middle" font-size="11" fill="#4b5563">с/у</text>
+          <text x="62" y="116" text-anchor="middle" font-size="13" fill="#374151">2к 61,8 м²</text>
+        </svg>
+        <div class="body">
+          <h4>2-комнатная</h4>
+          <div class="area">58,1–66,9 м², этажи 3–17</div>
+          <div class="cost">от 21,3 млн ₽<small>156 210 ₽/м², чистовая отделка</small></div>
+          <a class="btn" href="#form">Хочу посмотреть</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calc" style="background:#f0f2f1;">
+  <div class="wrap two-col">
+    <div class="calc">
+      <h3>Калькулятор ипотеки</h3>
+      <p class="note">Предварительный расчёт. Точные условия уточняйте у менеджера.</p>
+      <div class="rates">
+        <button type="button" id="rate-family" class="on" data-rate="6">Семейная, 6%</button>
+        <button type="button" id="rate-base" data-rate="21.9">Базовая, 21,9%</button>
+      </div>
+      <div class="row">
+        <label for="c-price">Стоимость квартиры, ₽</label>
+        <input type="number" id="c-price" value="21270000" min="1000000" step="100000">
+      </div>
+      <div class="row">
+        <label for="c-down">Первоначальный взнос, ₽</label>
+        <input type="number" id="c-down" value="4254000" min="0" step="100000">
+      </div>
+      <div class="row">
+        <label for="c-years">Срок, лет</label>
+        <input type="number" id="c-years" value="30" min="1" max="35">
+      </div>
+      <div class="result">
+        <div class="pay"><span id="c-pay">0</span> ₽/мес <small>аннуитетный платёж</small></div>
+        <div class="meta" id="c-meta">Ставка 6%, срок 30 лет</div>
+      </div>
+    </div>
+    <div class="form-card" id="form">
+      <h3>Записаться на показ</h3>
+      <p class="note">Менеджер перезвонит в течение 15 минут в рабочее время и подберёт удобное время показа.</p>
+      <form id="lead-form" novalidate>
+        <div class="field">
+          <label for="f-name">Ваше имя *</label>
+          <input type="text" id="f-name" name="name" required placeholder="Как к вам обращаться">
+        </div>
+        <div class="field">
+          <label for="f-phone">Телефон *</label>
+          <input type="tel" id="f-phone" name="phone" required placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="field">
+          <label for="f-email">Email (необязательно)</label>
+          <input type="email" id="f-email" name="email" placeholder="Пришлём подборку планировок">
+        </div>
+        <div class="field">
+          <label for="f-comment">Комментарий</label>
+          <textarea id="f-comment" name="comment" rows="2" placeholder="Например: студия до 40 м², до 19 млн"></textarea>
+        </div>
+        <input type="hidden" name="object_id" value="OBJ-001">
+        <input type="hidden" name="object_name" value="Северный парк">
+        <input type="hidden" name="utm_source" id="utm_source" value="">
+        <input type="hidden" name="utm_medium" id="utm_medium" value="">
+        <input type="hidden" name="utm_campaign" id="utm_campaign" value="">
+        <label class="agree">
+          <input type="checkbox" id="f-agree" required>
+          <span>Согласен на обработку персональных данных и получение информации о проекте</span>
+        </label>
+        <button class="btn" type="submit" id="f-submit" style="width:100%;">Записаться на показ</button>
+        <div class="success" id="f-success" style="margin-top:14px;">
+          <b>Заявка принята</b>
+          Менеджер свяжется с вами в течение 15 минут. Заявка зафиксирована в системе и попала в сегмент «Горячий лид».
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap two-col">
+    <div class="about">
+      <h2>О проекте</h2>
+      <p>«Северный парк» выходит на границу Марьинского парка: 9 га зелени напротив дома, закрытый двор без машин, прогулочная набережная пруда.</p>
+      <p>В дом заезжают с готовой отделкой: стены под покраску, ламинат, сантехника и электрика установлены. Первые 5 этажей занимают коммерция: аптека, супермаркет, кофейня и детский развивающий центр.</p>
+      <ul>
+        <li>612 квартир, 17 этажей, два подъезда</li>
+        <li>Паркинг на 420 машиномест с лифтом на жилые этажи</li>
+        <li>Школа на 1 100 мест и детский сад во дворе</li>
+        <li>Двор без машин, площадки и воркаут-зона</li>
+      </ul>
+    </div>
+    <div class="about">
+      <h2>Как проходит показ</h2>
+      <p>Показ идёт в офисе продаж на объекте: показываем шоурум с отделкой, планировки в живую и виды из окон будущей квартиры.</p>
+      <ul>
+        <li>Подбираем 3–5 планировок под ваш бюджет заранее</li>
+        <li>Считаем ипотеку по всем банкам-партнёрам на месте</li>
+        <li>Бронируем квартиру на 14 дней без оплаты</li>
+        <li>Онлайн-показ по видеосвязи, если не можете приехать</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Отдел продаж: +7 (495) 000-00-00, ежедневно 9:00-21:00. Москва, Марьино, ул. Парковая, 1 (офис продаж, 1 этаж).</div>
+    <div class="demo-note">Демонстрационный стенд для показа возможностей CDP-платформы. Проект, цены и компания вымышлены.</div>
+  </div>
+</footer>
+
+<script>
+/* ============ КОНФИГ ДЕМО ============
+   formEndpoint: адрес приёма заявок. Заполните после деплоя на Tuqo
+   (в панели Tuqo раздел форм), либо оставьте пустым для локальной репетиции:
+   форма покажет успех без отправки.
+======================================= */
+var CONFIG = {
+  formEndpoint: ""
+};
+
+/* Захват UTM в скрытые поля */
+(function(){
+  var p = new URLSearchParams(location.search);
+  ["utm_source","utm_medium","utm_campaign"].forEach(function(k){
+    var v = p.get(k);
+    var el = document.getElementById(k);
+    if (el && v) el.value = v;
+  });
+})();
+
+/* Калькулятор ипотеки (аннуитет) */
+var currentRate = 6;
+function money(n){ return n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+function recalc(){
+  var price = parseFloat(document.getElementById("c-price").value) || 0;
+  var down  = parseFloat(document.getElementById("c-down").value) || 0;
+  var years = parseFloat(document.getElementById("c-years").value) || 1;
+  var loan  = Math.max(price - down, 0);
+  var i = currentRate / 100 / 12;
+  var n = Math.round(years * 12);
+  var pay = (loan > 0 && i > 0) ? loan * i / (1 - Math.pow(1 + i, -n)) : (loan / n);
+  document.getElementById("c-pay").textContent = money(pay);
+  document.getElementById("c-meta").textContent =
+    "Ставка " + String(currentRate).replace(".", ",") + "%, кредит " + money(loan) +
+    " ₽, срок " + n + " мес";
+}
+["c-price","c-down","c-years"].forEach(function(id){
+  document.getElementById(id).addEventListener("input", recalc);
+});
+document.getElementById("rate-family").addEventListener("click", function(){ setRate(6, this); });
+document.getElementById("rate-base").addEventListener("click", function(){ setRate(21.9, this); });
+function setRate(r, btn){
+  currentRate = r;
+  document.querySelectorAll(".rates button").forEach(function(b){ b.classList.remove("on"); });
+  btn.classList.add("on");
+  recalc();
+}
+recalc();
+
+/* Отправка формы.
+   1) Всегда: событие в dataLayer (для аналитики/пикселя).
+   2) Если задан CONFIG.formEndpoint: POST JSON на этот адрес.
+   3) Если не задан: локальный режим репетиции, сразу успех. */
+function trackEvent(name, data){
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(Object.assign({event: name}, data));
+  if (window.console) console.log("[demo event]", name, data);
+}
+document.getElementById("lead-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  var ok = true;
+  ["f-name","f-phone"].forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el.value.trim()) { el.style.borderColor = "#c2410c"; ok = false; }
+    else el.style.borderColor = "";
+  });
+  if (!document.getElementById("f-agree").checked) ok = false;
+  if (!ok) return;
+  var data = {
+    name:    document.getElementById("f-name").value.trim(),
+    phone:   document.getElementById("f-phone").value.trim(),
+    email:   document.getElementById("f-email").value.trim(),
+    comment: document.getElementById("f-comment").value.trim(),
+    object_id: "OBJ-001",
+    object_name: "Северный парк",
+    utm_source: document.getElementById("utm_source").value,
+    utm_medium: document.getElementById("utm_medium").value,
+    utm_campaign: document.getElementById("utm_campaign").value
+  };
+  trackEvent("lead_submitted", data);
+  /* МЕСТО ДЛЯ ПИКСЕЛЯ ALTCRAFT: вставьте сюда официальный сниппет из
+     личного кабинета Altcraft (раздел пикселей). Ниже пример-заглушка:
+     if (window.altcraftPixel) window.altcraftPixel("lead", data);      */
+  if (CONFIG.formEndpoint) {
+    fetch(CONFIG.formEndpoint, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    }).catch(function(err){ console.log("endpoint error", err); });
+  }
+  document.getElementById("f-submit").disabled = true;
+  document.getElementById("f-submit").textContent = "Отправлено";
+  document.getElementById("f-success").style.display = "block";
+});
+</script>
+</body>
+</html>
