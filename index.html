@@ -303,12 +303,14 @@
 
 <script>
 /* ============ КОНФИГ ДЕМО ============
-   formEndpoint: адрес приёма заявок. Заполните после деплоя на Tuqo
-   (в панели Tuqo раздел форм), либо оставьте пустым для локальной репетиции:
-   форма покажет успех без отправки.
+   Хостинг: GitHub Pages (https://allybellybom-crypto.github.io/altcraft-demo-nedvizhimost/)
+   formEndpoint: адрес приёма заявок. Можно оставить пустым:
+   пиксель Altcraft отправляет данные в CDP сам (ak_pixel_push ниже).
+   dbId: ID базы профилей Altcraft (число из URL раздела «Базы профилей»).
 ======================================= */
 var CONFIG = {
-  formEndpoint: ""
+  formEndpoint: "",   /* можно оставить пустым: пиксель Altcraft шлёт данные сам */
+  dbId: ""            /* ID базы профилей Altcraft (число), для ak_pixel_push */
 };
 
 /* Захват UTM в скрытые поля */
@@ -381,9 +383,10 @@ document.getElementById("lead-form").addEventListener("submit", function(e){
     utm_campaign: document.getElementById("utm_campaign").value
   };
   trackEvent("lead_submitted", data);
-  /* МЕСТО ДЛЯ ПИКСЕЛЯ ALTCRAFT: вставьте сюда официальный сниппет из
-     личного кабинета Altcraft (раздел пикселей). Ниже пример-заглушка:
-     if (window.altcraftPixel) window.altcraftPixel("lead", data);      */
+  /* ПИКСЕЛЬ ALTCRAFT: отправка события «заявка» в CDP */
+  if (typeof ak_pixel_push === "function" && CONFIG.dbId) {
+    ak_pixel_push("заявка", 1, {db_id: Number(CONFIG.dbId), email: data.email});
+  }
   if (CONFIG.formEndpoint) {
     fetch(CONFIG.formEndpoint, {
       method: "POST",
