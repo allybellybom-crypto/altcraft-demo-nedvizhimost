@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ЖК Северный парк, Марьино. Квартиры от застройщика</title>
 <meta name="description" content="ЖК Северный парк, Москва, Марьино. Новостройка, сдача III кв. 2026. Квартиры от 17,7 млн руб. Запись на показ онлайн.">
+<script>
+    (function (window, document, dataLayerName, containerID) {
+        window[dataLayerName] = window[dataLayerName] || [];
+        window[dataLayerName].push({ 'start': new Date().getTime(), event: 'actm-js' });
+        var firstScript = document.getElementsByTagName('script')[0];
+        var script = document.createElement('script');
+        var dl = dataLayerName !== 'acDataLayer' ? '&l=' + dataLayerName : '';
+        script.async = true;
+        script.src = 'https://pxl.ru.altkraft.com/actm/js/actm.js?id=' + containerID + dl;
+        script.type = 'module';
+        if (firstScript && firstScript.parentNode) {
+            firstScript.parentNode.insertBefore(script, firstScript);
+        }
+    }(window, document, 'acDataLayer', 'ATM-2qGTHeg9soFVxaHPC'));
+</script>
 <style>
   :root{
     --ink:#1a1d21; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f7f5; --card:#ffffff;
@@ -279,14 +294,10 @@
 /* ============ КОНФИГ ДЕМО ============
    Хостинг: GitHub Pages (https://allybellybom-crypto.github.io/altcraft-demo-nedvizhimost/)
    Форма записи: живая форма Altcraft (iframe, POST напрямую в CDP).
-   Попап: всплывает при уходе курсора за пределы окна (exit-intent), раз за сессию.
-   formEndpoint/dbId: не используются, форма отправляет данные сама.
+   Попап и пиксель: через Менеджер тегов Altcraft (контейнер ATM-2qGTHeg9soFVxaHPC в <head>).
 ======================================= */
-var CONFIG = {
-  formUrl: "https://pxl.ru.altkraft.com/form?form=6YwKJ5PQn8vQ6mMNFGVZHQMjW5nccpvNUW7Hc5ZKUwH9BdzmhNadvw3HVo7SqsCCu3pjc2djVtEWc2gBULXNe5yF"
-};
 
-/* UTM: сохраняем в sessionStorage и пробрасываем в обе формы */
+/* UTM: сохраняем в sessionStorage и пробрасываем в формы */
 (function(){
   var p = new URLSearchParams(location.search);
   var q = [];
@@ -303,30 +314,6 @@ var CONFIG = {
   document.querySelectorAll("iframe.ak-form").forEach(function(f){
     if (saved) f.src = f.src.split("#")[0] + "#" + saved;
   });
-})();
-
-/* Попап при уходе (exit-intent): раз за сессию, не раньше 7 секунд на странице */
-(function(){
-  var POPUP_ID = "ak-exit-popup";
-  var armed = false, shown = false;
-  setTimeout(function(){ armed = true; }, 7000);
-
-  function showPopup(){
-    if (shown || sessionStorage.getItem("ak_exit_shown")) return;
-    shown = true;
-    sessionStorage.setItem("ak_exit_shown", "1");
-    document.getElementById(POPUP_ID).style.display = "flex";
-  }
-  window.akClosePopup = function(){
-    document.getElementById(POPUP_ID).style.display = "none";
-  };
-
-  document.addEventListener("mouseout", function(e){
-    if (!armed) return;
-    if (e.relatedTarget === null && !e.toElement) showPopup();
-  });
-  /* страховка для тач-устройств: долгое leaf-бездействие не ловим,
-     но быстрый уход по кнопке «назад» в демо не нужен, десктоп-шоу главное */
 })();
 
 /* Калькулятор ипотеки (аннуитет) */
@@ -358,16 +345,5 @@ function setRate(r, btn){
 }
 recalc();
 </script>
-
-<!-- Попап при уходе: внутри та же живая форма Altcraft -->
-<div id="ak-exit-popup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,.55); align-items:center; justify-content:center; padding:20px;">
-  <div style="background:#fff; border-radius:12px; max-width:430px; width:100%; padding:26px 26px 20px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.35); max-height:92vh; overflow:auto;">
-    <button onclick="akClosePopup()" style="position:absolute; top:10px; right:12px; border:0; background:none; font-size:22px; cursor:pointer; color:#64748b;" aria-label="Закрыть">&times;</button>
-    <h3 style="margin:0 0 6px; font-size:20px;">Уходите? Заберите подборку</h3>
-    <p style="margin:0 0 14px; color:#475569; font-size:14px;">Планировки, цены и ипотечные условия ЖК «Северный парк» в одном письме. Заодно выберите удобную дату показа.</p>
-    <iframe class="ak-form" src="https://pxl.ru.altkraft.com/form?form=6YwKJ5PQn8vQ6mMNFGVZHQMjW5nccpvNUW7Hc5ZKUwH9BdzmhNadvw3HVo7SqsCCu3pjc2djVtEWc2gBULXNe5yF"
-      style="width:100%; height:560px; border:0;" title="Форма записи (попап)"></iframe>
-  </div>
-</div>
 </body>
 </html>
