@@ -231,39 +231,13 @@
     </div>
     <div class="form-card" id="form">
       <h3>Записаться на показ</h3>
-      <p class="note">Менеджер перезвонит в течение 15 минут в рабочее время и подберёт удобное время показа.</p>
-      <form id="lead-form" novalidate>
-        <div class="field">
-          <label for="f-name">Ваше имя *</label>
-          <input type="text" id="f-name" name="name" required placeholder="Как к вам обращаться">
-        </div>
-        <div class="field">
-          <label for="f-phone">Телефон *</label>
-          <input type="tel" id="f-phone" name="phone" required placeholder="+7 (___) ___-__-__">
-        </div>
-        <div class="field">
-          <label for="f-email">Email (необязательно)</label>
-          <input type="email" id="f-email" name="email" placeholder="Пришлём подборку планировок">
-        </div>
-        <div class="field">
-          <label for="f-comment">Комментарий</label>
-          <textarea id="f-comment" name="comment" rows="2" placeholder="Например: студия до 40 м², до 19 млн"></textarea>
-        </div>
-        <input type="hidden" name="object_id" value="OBJ-001">
-        <input type="hidden" name="object_name" value="Северный парк">
-        <input type="hidden" name="utm_source" id="utm_source" value="">
-        <input type="hidden" name="utm_medium" id="utm_medium" value="">
-        <input type="hidden" name="utm_campaign" id="utm_campaign" value="">
-        <label class="agree">
-          <input type="checkbox" id="f-agree" required>
-          <span>Согласен на обработку персональных данных и получение информации о проекте</span>
-        </label>
-        <button class="btn" type="submit" id="f-submit" style="width:100%;">Записаться на показ</button>
-        <div class="success" id="f-success" style="margin-top:14px;">
-          <b>Заявка принята</b>
-          Менеджер свяжется с вами в течение 15 минут. Заявка зафиксирована в системе и попала в сегмент «Горячий лид».
-        </div>
-      </form>
+      <p class="note">Выберите дату и оставьте email. Заявка сразу попадёт в CDP, менеджер свяжется с вами в течение 15 минут.</p>
+      <div style="max-height:78vh; overflow:auto; border-radius:8px;">
+        <iframe class="ak-form"
+          src="https://pxl.ru.altkraft.com/form?form=6YwKJ5PQn8vQ6mMNFGVZHQMjW5nccpvNUW7Hc5ZKUwH9BdzmhNadvw3HVo7SqsCCu3pjc2djVtEWc2gBULXNe5yF"
+          style="width:100%; height:660px; border:0;" loading="lazy"
+          title="Форма записи на показ (Altcraft)"></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -304,23 +278,55 @@
 <script>
 /* ============ КОНФИГ ДЕМО ============
    Хостинг: GitHub Pages (https://allybellybom-crypto.github.io/altcraft-demo-nedvizhimost/)
-   formEndpoint: адрес приёма заявок. Можно оставить пустым:
-   пиксель Altcraft отправляет данные в CDP сам (ak_pixel_push ниже).
-   dbId: ID базы профилей Altcraft (число из URL раздела «Базы профилей»).
+   Форма записи: живая форма Altcraft (iframe, POST напрямую в CDP).
+   Попап: всплывает при уходе курсора за пределы окна (exit-intent), раз за сессию.
+   formEndpoint/dbId: не используются, форма отправляет данные сама.
 ======================================= */
 var CONFIG = {
-  formEndpoint: "",   /* можно оставить пустым: пиксель Altcraft шлёт данные сам */
-  dbId: ""            /* ID базы профилей Altcraft (число), для ak_pixel_push */
+  formUrl: "https://pxl.ru.altkraft.com/form?form=6YwKJ5PQn8vQ6mMNFGVZHQMjW5nccpvNUW7Hc5ZKUwH9BdzmhNadvw3HVo7SqsCCu3pjc2djVtEWc2gBULXNe5yF"
 };
 
-/* Захват UTM в скрытые поля */
+/* UTM: сохраняем в sessionStorage и пробрасываем в обе формы */
 (function(){
   var p = new URLSearchParams(location.search);
+  var q = [];
   ["utm_source","utm_medium","utm_campaign"].forEach(function(k){
     var v = p.get(k);
-    var el = document.getElementById(k);
-    if (el && v) el.value = v;
+    if (v) q.push(k + "=" + encodeURIComponent(v));
   });
+  if (q.length) {
+    var stored = sessionStorage.getItem("ak_utm");
+    var merged = q.join("&") + (stored ? "&" + stored : "");
+    sessionStorage.setItem("ak_utm", merged);
+  }
+  var saved = sessionStorage.getItem("ak_utm") || "";
+  document.querySelectorAll("iframe.ak-form").forEach(function(f){
+    if (saved) f.src = f.src.split("#")[0] + "#" + saved;
+  });
+})();
+
+/* Попап при уходе (exit-intent): раз за сессию, не раньше 7 секунд на странице */
+(function(){
+  var POPUP_ID = "ak-exit-popup";
+  var armed = false, shown = false;
+  setTimeout(function(){ armed = true; }, 7000);
+
+  function showPopup(){
+    if (shown || sessionStorage.getItem("ak_exit_shown")) return;
+    shown = true;
+    sessionStorage.setItem("ak_exit_shown", "1");
+    document.getElementById(POPUP_ID).style.display = "flex";
+  }
+  window.akClosePopup = function(){
+    document.getElementById(POPUP_ID).style.display = "none";
+  };
+
+  document.addEventListener("mouseout", function(e){
+    if (!armed) return;
+    if (e.relatedTarget === null && !e.toElement) showPopup();
+  });
+  /* страховка для тач-устройств: долгое leaf-бездействие не ловим,
+     но быстрый уход по кнопке «назад» в демо не нужен, десктоп-шоу главное */
 })();
 
 /* Калькулятор ипотеки (аннуитет) */
@@ -351,53 +357,17 @@ function setRate(r, btn){
   recalc();
 }
 recalc();
-
-/* Отправка формы.
-   1) Всегда: событие в dataLayer (для аналитики/пикселя).
-   2) Если задан CONFIG.formEndpoint: POST JSON на этот адрес.
-   3) Если не задан: локальный режим репетиции, сразу успех. */
-function trackEvent(name, data){
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(Object.assign({event: name}, data));
-  if (window.console) console.log("[demo event]", name, data);
-}
-document.getElementById("lead-form").addEventListener("submit", function(e){
-  e.preventDefault();
-  var ok = true;
-  ["f-name","f-phone"].forEach(function(id){
-    var el = document.getElementById(id);
-    if (!el.value.trim()) { el.style.borderColor = "#c2410c"; ok = false; }
-    else el.style.borderColor = "";
-  });
-  if (!document.getElementById("f-agree").checked) ok = false;
-  if (!ok) return;
-  var data = {
-    name:    document.getElementById("f-name").value.trim(),
-    phone:   document.getElementById("f-phone").value.trim(),
-    email:   document.getElementById("f-email").value.trim(),
-    comment: document.getElementById("f-comment").value.trim(),
-    object_id: "OBJ-001",
-    object_name: "Северный парк",
-    utm_source: document.getElementById("utm_source").value,
-    utm_medium: document.getElementById("utm_medium").value,
-    utm_campaign: document.getElementById("utm_campaign").value
-  };
-  trackEvent("lead_submitted", data);
-  /* ПИКСЕЛЬ ALTCRAFT: отправка события «заявка» в CDP */
-  if (typeof ak_pixel_push === "function" && CONFIG.dbId) {
-    ak_pixel_push("заявка", 1, {db_id: Number(CONFIG.dbId), email: data.email});
-  }
-  if (CONFIG.formEndpoint) {
-    fetch(CONFIG.formEndpoint, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data)
-    }).catch(function(err){ console.log("endpoint error", err); });
-  }
-  document.getElementById("f-submit").disabled = true;
-  document.getElementById("f-submit").textContent = "Отправлено";
-  document.getElementById("f-success").style.display = "block";
-});
 </script>
+
+<!-- Попап при уходе: внутри та же живая форма Altcraft -->
+<div id="ak-exit-popup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,.55); align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#fff; border-radius:12px; max-width:430px; width:100%; padding:26px 26px 20px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.35); max-height:92vh; overflow:auto;">
+    <button onclick="akClosePopup()" style="position:absolute; top:10px; right:12px; border:0; background:none; font-size:22px; cursor:pointer; color:#64748b;" aria-label="Закрыть">&times;</button>
+    <h3 style="margin:0 0 6px; font-size:20px;">Уходите? Заберите подборку</h3>
+    <p style="margin:0 0 14px; color:#475569; font-size:14px;">Планировки, цены и ипотечные условия ЖК «Северный парк» в одном письме. Заодно выберите удобную дату показа.</p>
+    <iframe class="ak-form" src="https://pxl.ru.altkraft.com/form?form=6YwKJ5PQn8vQ6mMNFGVZHQMjW5nccpvNUW7Hc5ZKUwH9BdzmhNadvw3HVo7SqsCCu3pjc2djVtEWc2gBULXNe5yF"
+      style="width:100%; height:560px; border:0;" title="Форма записи (попап)"></iframe>
+  </div>
+</div>
 </body>
 </html>
