@@ -103,9 +103,34 @@
   .about li:before{content:""; position:absolute; left:0; top:11px; width:14px; height:14px; border-radius:50%; background:var(--accent-soft); border:4px solid var(--accent);}
   footer{border-top:1px solid var(--line); padding:26px 0 40px; color:var(--muted); font-size:12.5px; background:var(--card);}
   footer .demo-note{margin-top:10px; padding:10px 14px; background:var(--bg); border-radius:8px;}
+  .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px;}
+  .badge{font-size:13px; font-weight:600; padding:7px 12px; border-radius:999px;}
+  .badge.warn{background:#fdf3e7; color:#b45309; border:1px solid #f3d9b5;}
+  .badge.proof{background:var(--accent-soft); color:var(--accent-dark); border:1px solid #cfe5dc;}
+  .promo-strip{background:#123527; color:#fff;}
+  .promo-inner{display:flex; align-items:center; justify-content:center; gap:14px; padding:12px 16px; flex-wrap:wrap; text-align:center; font-size:14.5px;}
+  .promo-inner b{color:#ffd977;}
+  .promo-timer{font-variant-numeric:tabular-nums; font-weight:700; background:rgba(255,255,255,.14); padding:4px 10px; border-radius:8px;}
+  .sales-progress{margin:18px 0 26px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px;}
+  .sales-progress .lbl{display:flex; justify-content:space-between; font-size:14px; margin-bottom:8px; color:var(--ink);}
+  .sales-progress .bar2{height:10px; background:#eef1ef; border-radius:6px; overflow:hidden;}
+  .sales-progress .bar2 i{display:block; height:100%; width:84%; background:linear-gradient(90deg,var(--accent),#159a6f); border-radius:6px;}
+  .reviews{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .review-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px;}
+  .review-card p{font-size:14.5px; color:#374151; line-height:1.5; margin-bottom:12px;}
+  .review-card .who{font-size:13px; color:var(--muted); font-weight:600;}
+  .stars{color:#eab308; letter-spacing:2px; margin-bottom:8px; font-size:14px;}
+  .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:900; background:#fff; box-shadow:0 -8px 24px rgba(0,0,0,.10); padding:10px 18px; display:none; align-items:center; justify-content:space-between; gap:14px;}
+  .sticky-cta.show{display:flex;}
+  .sticky-cta .t{font-size:14px; font-weight:600;}
+  .sticky-cta small{display:block; color:var(--muted); font-weight:400;}
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
   @media (max-width: 860px){
     .hero-grid,.two-col{grid-template-columns:1fr;}
     .plans{grid-template-columns:1fr;}
+    .reviews{grid-template-columns:1fr;}
+    .sticky-cta .t small{display:none;}
     .hdr nav{display:none;}
     h1{font-size:27px;}
   }
@@ -132,6 +157,10 @@
       <span class="kicker">Новостройка. Сдача в III кв. 2026</span>
       <h1>ЖК «Северный парк», Марьино</h1>
       <p class="sub">Квартиры с панорамными окнами на парк. Дом на 612 квартир, свой паркинг, школа и детский сад в пешей доступности. 12 минут пешком до метро «Марьино».</p>
+      <div class="badges">
+        <span class="badge warn">Осталось 14 квартир в корпусе 3</span>
+        <span class="badge proof">127 семей выбрали «Северный парк» в этом месяце</span>
+      </div>
       <div class="facts">
         <div class="fact"><small>Цены от</small><b>17,7 млн ₽</b></div>
         <div class="fact"><small>Площади</small><b>32–67 м²</b></div>
@@ -155,10 +184,22 @@
   </div>
 </div>
 
+<div class="promo-strip">
+  <div class="wrap promo-inner">
+    <span><b>Скидка 5%</b> при брони до конца недели</span>
+    <span class="promo-timer" id="promo-timer">--:--:--</span>
+    <a href="#form" style="color:#ffd977; font-weight:600; text-decoration:underline;">Успеть забронировать</a>
+  </div>
+</div>
+
 <section id="plans">
   <div class="wrap">
     <h2>Планировки и цены</h2>
     <p class="section-sub">Три типа квартир. Полный прайс: 36 корпусов и планировок в отделе продаж, ниже стартовые цены по типам.</p>
+    <div class="sales-progress reveal">
+      <div class="lbl"><span>Продано 84% квартир корпуса 3</span><span>осталось 14</span></div>
+      <div class="bar2"><i></i></div>
+    </div>
     <div class="plans">
       <div class="plan">
         <svg viewBox="0 0 300 150" role="img" aria-label="План студии">
@@ -242,6 +283,7 @@
       <div class="result">
         <div class="pay"><span id="c-pay">0</span> ₽/мес <small>аннуитетный платёж</small></div>
         <div class="meta" id="c-meta">Ставка 6%, срок 30 лет</div>
+        <div id="c-anchor" style="display:none; margin-top:10px; padding:10px 12px; background:var(--accent-soft); color:var(--accent-dark); border-radius:8px; font-size:13.5px; font-weight:600;"></div>
       </div>
     </div>
     <div class="form-card" id="form">
@@ -282,6 +324,35 @@
     </div>
   </div>
 </section>
+
+<section id="reviews" style="background:#f0f2f1;">
+  <div class="wrap">
+    <h2>Что говорят покупатели</h2>
+    <p class="section-sub">Отзывы семей, которые уже выбрали квартиру в «Северном парке».</p>
+    <div class="reviews">
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>«Приехали на показ вдвоём, уехали с брони. Понравилось, что заранее подобрали три варианта под наш бюджет и всё посчитали на месте».</p>
+        <div class="who">Анна и Дмитрий, Марьино</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>«Смотрели пять ЖК в этом районе, здесь единственные нормально объяснили про эскроу и сроки. И парк реально рядом, окна в него».</p>
+        <div class="who">Ольга, покупка в июне</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="stars">★★★★☆</div>
+        <p>«Одобрили семейную ипотеку за четыре дня, платёж вышел меньше аренды. Документы приняли в офисе прямо на объекте».</p>
+        <div class="who">Сергей, 2-комнатная 58 м²</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sticky-cta" id="sticky-cta">
+  <div class="t">Запись на показ<small>Осталось 14 квартир в корпусе 3</small></div>
+  <a class="btn" href="#form">Записаться</a>
+</div>
 
 <footer>
   <div class="wrap">
@@ -331,6 +402,15 @@ function recalc(){
   document.getElementById("c-meta").textContent =
     "Ставка " + String(currentRate).replace(".", ",") + "%, кредит " + money(loan) +
     " ₽, срок " + n + " мес";
+  /* Анкоринг: сколько платёж на семейной ставке ниже базовой */
+  var ib = 21.9 / 100 / 12;
+  var payBase = (loan > 0) ? loan * ib / (1 - Math.pow(1 + ib, -n)) : (loan / n);
+  var anchor = document.getElementById("c-anchor");
+  if (anchor) {
+    var diff = Math.round(payBase - pay);
+    anchor.style.display = diff > 0 ? "block" : "none";
+    anchor.textContent = "На семейной ставке платёж ниже на " + money(diff) + " ₽ в месяц";
+  }
 }
 ["c-price","c-down","c-years"].forEach(function(id){
   document.getElementById(id).addEventListener("input", recalc);
@@ -344,6 +424,51 @@ function setRate(r, btn){
   recalc();
 }
 recalc();
+
+/* Промо-таймер: до конца недели (воскресенье 23:59:59) */
+(function(){
+  function tick(){
+    var now = new Date();
+    var end = new Date(now);
+    end.setDate(now.getDate() + ((7 - now.getDay()) % 7 || 7));
+    end.setHours(23,59,59,999);
+    if (end - now <= 0) end.setDate(end.getDate() + 7);
+    var s = Math.max(0, Math.floor((end - now)/1000));
+    var d = Math.floor(s/86400); s %= 86400;
+    var h = Math.floor(s/3600); s %= 3600;
+    var m = Math.floor(s/60); s %= 60;
+    var pad = function(n){ return (n<10?'0':'')+n; };
+    document.getElementById("promo-timer").textContent =
+      (d>0 ? d+"д " : "") + pad(h)+":"+pad(m)+":"+pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* Липкая кнопка: после прокрутки первого экрана */
+(function(){
+  var bar = document.getElementById("sticky-cta");
+  window.addEventListener("scroll", function(){
+    var past = window.scrollY > window.innerHeight * 0.9;
+    var formVisible = false;
+    var f = document.getElementById("form");
+    if (f) {
+      var r = f.getBoundingClientRect();
+      formVisible = r.top < window.innerHeight && r.bottom > 0;
+    }
+    bar.classList.toggle("show", past && !formVisible);
+  }, {passive:true});
+})();
+
+/* Появление блоков при скролле */
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+})();
 </script>
 </body>
 </html>
